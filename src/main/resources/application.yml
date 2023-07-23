@@ -1,0 +1,16 @@
+server:
+  port : 8181
+      
+db:
+  # Postgres
+  driver: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5432/testdb
+  username: postgres
+  password: postgres
+  
+  # MySQL
+  #driver: com.mysql.jdbc.Driver (DEPRECATED)
+  #driver: com.mysql.cj.jdbc.Driver
+  #url: jdbc:mysql://localhost:3306/testdb?allowPublicKeyRetrieval=true&useSSL=false&generateSimpleParameterMetadata=true
+  #username: root
+  #password: mysql

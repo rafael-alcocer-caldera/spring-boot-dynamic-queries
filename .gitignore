@@ -1,0 +1,9 @@
+/target/
+.DS_Store
+.classpath
+.factorypath
+.project
+*.prefs
+.dbeaver/credentials-config.json
+.dbeaver/data-sources.json
+.dbeaver/project-settings.json

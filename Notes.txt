@@ -1,0 +1,19 @@
+Without generateSimpleParameterMetadata=true in url of application.yml, you'll receive:
+ 
+java.sql.SQLException: Parameter metadata not available for the given statement
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:130)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:98)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:90)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:64)
+	at com.mysql.cj.jdbc.MysqlParameterMetadata.checkAvailable(MysqlParameterMetadata.java:86)
+	at com.mysql.cj.jdbc.MysqlParameterMetadata.getParameterType(MysqlParameterMetadata.java:138)
+	at rafael.alcocer.caldera.jdbc.DynamicQuery.getResultSet(DynamicQuery.java:79)
+	at rafael.alcocer.caldera.jdbc.ExecuteDynamicQuery.executeSelectByUserName(ExecuteDynamicQuery.java:61)
+	at rafael.alcocer.caldera.SpringBootDynamicQueriesApplication.run(SpringBootDynamicQueriesApplication.java:46)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:771)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:755)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:319)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at rafael.alcocer.caldera.SpringBootDynamicQueriesApplication.main(SpringBootDynamicQueriesApplication.java:41)
+2023-07-16T21:12:26.987-06:00  INFO 89478 --- [           main] r.alcocer.caldera.jdbc.DynamicQuery      : ##### columns

@@ -1,0 +1,177 @@
+La idea original surge a raiz de tener que mapear
+los parámetros del query con las columnas de la base
+de datos. Esto siempre nos expone a cometer los
+clásicos errores de que no corresponde el tipo de dato.
+
+Solucionando el problema anterior ya tengo la posibilidad
+de crear mis queries sin tener que pensar que algun mapeo
+esta mal. Lo siguiente seria obtener el ResultSet.
+
+Requiero un método que reciba de parámetros una conexion,
+el query y la lista de parametros.
+
+Ejemplo:
+-------
+
+public ResultSet getResultSet(Connection conn, String query, List 
+parameters) {
+}
+
+de donde: parameters = lista de objetos String, Integer, Double, etc
+                       que van a ser los parámetros (?) del query
+
+si tengo:  Password = pass
+           Nombre = X
+           Paterno = Y
+           Materno = Z
+
+           List lis = new ArrayList();
+           list.add(request.getParameter("Password"));
+
+           Query: "SELECT Password, Nombre FROM Tabla1 WHERE Password = ?"
+
+Para el caso de los QUERIES:
+---------------------------
+Pensaba utilizar un archivo XML y leerlo con JDOM o algún otro parser, pero 
+esto
+iba a complicar mucho el diseño. Por eso mejor decidí utilizar las 
+PREFERENCES.
+
+
+El utilizar Preferences en vez de Properties tiene muchas ventajas:
+------------------------------------------------------------------
+- Ofrece una organización jerárquica debido a su formato XML.
+- Una vez que se tiene esa estructura, se puede separar el usuario
+  del sistema. Una vez definida esta separación se puede hacer una
+  distinción entre diferentes usuarios. Esto hace facil el mantenimiento
+  de una gran numero de usuarios.
+- El usar archivo de propiedades implica almacenar las propiedades
+  dentro del contexto del directorio del usuario y casi siempre
+  estos valores se almacenan en un archivo que es hard-codeado
+  dentro del sistema.
+
+
+RESULTADO FINAL:
+---------------
+
+Todo lo anterior parecia perfecto...imaginate para el sig. query:
+
+SELECT Password, Nombre, Paterno, Materno FROM Administrador WHERE Password 
+= ?
+
+Solamente hacer esto:
+--------------------
+
+		DynamicQuery dq = new DynamicQuery();
+		List parameters = new ArrayList();
+		parameters.add("10");
+
+		try {
+			ResultSet rs = dq.getResultSet(conn, query, parameters);
+
+			if (rs != null) {
+				while (rs.next()) {
+					System.out.println();
+					System.out.println("Password: " + rs.getString("Password"));
+					System.out.println("Nombre: " + rs.getString("Nombre"));
+					System.out.println("Paterno: " + rs.getString("Paterno"));
+					System.out.println("Materno: " + rs.getString("Materno"));
+					System.out.println();
+				}
+			} else {
+				System.out.println("ResultSet es nulo");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+
+Bueno pues despues de varias pruebas SI lo hace.
+
+---------------------
+
+
+A continuacion te expongo las sig. limitaciones:
+
+- Solo puedes hacerlo para una solo tabla y no puede tener joins.
+- Para inserts se seleccionan todas las columnas no nulas y aquellas que no 
+tengan valor de deafult.
+- No se puede usar SELECT *
+- Solo se pueden seleccionar columnas, no columnas derivadas tales como SUM 
+o MAX
+
+Como se indica en la siguiente liga:
+
+
+link: 
+http://www.stanford.edu/dept/itss/docs/oracle/9i/java.920/a96654/resltset.htm
+
+Result Set Limitations
+**********************
+The following limitations are placed on queries for enhanced result sets.
+Failure to follow these guidelines will result in the JDBC driver choosing 
+an alternative result set type or concurrency type.
+
+To produce an updatable result set:
+
+A query can select from only a single table and cannot contain any join 
+operations.
+
+In addition, for inserts to be feasible, the query must select all 
+non-nullable columns and all columns that do not have a default value.
+
+A query cannot use "SELECT * ". (But see the workaround below.)
+A query must select table columns only. It cannot select derived columns or 
+aggregates such as the SUM or MAX of a set of columns.
+To produce a scroll-sensitive result set:
+
+A query cannot use "SELECT * ". (But see the workaround below.)
+A query can select from only a single table.
+(See "Summary of New Methods for Result Set Enhancements" for general 
+information about refetching.)
+
+Workaround
+As a workaround for the "SELECT *" limitation, you can use table aliases as 
+in the following example:
+
+SELECT t.* FROM TABLE t ...
+
+***********************
+
+
+
+
+PERO SE PUEDEN TOMAR VARIAS COSAS POSITIVAS DE LO ANTERIOR...
+
+1)
+USAR PREFERENCES SOBRE PROPERTIES COMO SE OBSERVA EN LAS VENTAJAS ES MEJOR.
+ES MAS... UNA VEZ QUE IMPORTAS LAS PREFERENCES DE ALGUN ARCHIVO, YA NO 
+NECESITAS
+TENER EL ARCHIVO PARA INVOCAR LO QUE CONTIENE EL ARCHIVO, YA SE ENCUENTRAN
+EN EL AMBIENTE DEL USUARIO.
+
+SI POR EJEMPLO TENEMOS ESTE ARCHIVO DE PREFERENCIAS EN EL SERVIDOR,
+SI COMO USUARIO AL MOMENTO DE INICIAR EL SISTEMA LO IMPORTAMOS, SI
+HAY ALGUN CAMBIO LO TOMA EN ESE MOMENTO Y SE GRABA EN EL AMBIENTE
+DE ESE USUARIO...DESPUES LO UNICO QUE SE NECESITA ES HACER EL LLAMADO
+A CADA PREFERENCIA:
+
+prefs.get("SELECT_Administrador_By_Password", null)
+
+DE ESTA FORMA:
+- SOLO SE TIENE UN PUNTO DE ACCESO A CADA QUERY, ESTO ES,
+  UN SOLO LUGAR PARA REALIZAR MODIFICACIONES AL QUERY.
+- NO NECESITAS DE STREAMS PARA HACER ALGUN LLAMADO AL ARCHIVO.
+- CUALQUIER MODIFICACION AL QUERY SE REFLEJARIA CUANDO INICIEN
+  NUEVAMENTE EL SISTEMA, SIN NECESIDAD DE MOVER EL CODIGO
+  A MENOS QUE SE AGREGUEN MAS PARAMETROS O SE QUITEN PARAMETROS.
+
+2)
+AL VER LAS LIMITACIONES QUE TIENE EL QUERY DINAMICO, PUES SOLO
+SE PUEDE USAR PARA UNA SOLA TABLA, PERO TE QUITA DE MUCHA CHAMBA.
+PERO INDEPENDIENTEMENTE DE ESO SE PUEDE CREAR UNA CLASE COMO LA
+ANTERIOR QUE POR EJEMPLO, HAGA EL MAPEO AUTOMATICO Y OBTENER
+EL PreparedStatement...LAS LIMITACIONES NO HABLAN MAS QUE
+DE ResultSet...ASI QUE SE PODRIA TOMAR ESTE MISMO PRINCIPIO.
+
+DE NO HABER TENIDO ESAS LIMITANTES HUBIERA ESTADO DE LUJO ESTO, NI MODO.
+
