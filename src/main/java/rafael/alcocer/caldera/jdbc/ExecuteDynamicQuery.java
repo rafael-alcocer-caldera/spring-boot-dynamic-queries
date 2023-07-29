@@ -67,14 +67,14 @@ public class ExecuteDynamicQuery {
         LOGGER.info("##### total inserted: " + rowsInserted.length);
     }
 
-    public void executeSelectBy(String tableName, String columnName, String columnValue) {
+    public void executeSelectBy(String tableName, String columnName, Object columnValue) {
         String querySelect = """
                 SELECT *
                 FROM %s
                 WHERE %s = ?
                          """.formatted(tableName, columnName);
 
-        List<String> parameters = new ArrayList<>();
+        List<Object> parameters = new ArrayList<>();
         parameters.add(columnValue);
 
         try (ResultSet rs = dynamicQuery.getResultSet(querySelect, parameters);) {

@@ -80,67 +80,67 @@ public class DynamicQuery {
                 LOGGER.info("##### parameterType: " + parameterType);
 
                 switch (parameterType) {
-                case Types.CHAR:
-                case Types.VARCHAR:
-                case Types.LONGVARCHAR:
+                case Types.CHAR: // 1
+                case Types.VARCHAR: // 12
+                case Types.LONGVARCHAR: // -1
                     String stringParam = (String) parameters.get(i);
                     ps.setString(i + 1, stringParam);
                     break;
 
-                case Types.BIT:
-                case Types.BOOLEAN:
+                case Types.BIT: // -7
+                case Types.BOOLEAN: // 16
                     boolean booleanParam = ((Boolean) parameters.get(i)).booleanValue();
                     ps.setBoolean(i + 1, booleanParam);
                     break;
 
-                case Types.TINYINT:
+                case Types.TINYINT: // -6
                     byte byteParam = ((Byte) parameters.get(i)).byteValue();
                     ps.setByte(i + 1, byteParam);
                     break;
 
-                case Types.SMALLINT:
+                case Types.SMALLINT: // 5
                     short shortParam = ((Short) parameters.get(i)).shortValue();
                     ps.setShort(i + 1, shortParam);
                     break;
 
-                case Types.INTEGER:
+                case Types.INTEGER: // 4
                     int intParam = ((Integer) parameters.get(i)).intValue();
                     ps.setInt(i + 1, intParam);
                     break;
 
-                case Types.BIGINT:
+                case Types.BIGINT: // -5
                     long longParam = ((Long) parameters.get(i)).longValue();
                     ps.setLong(i + 1, longParam);
                     break;
 
-                case Types.REAL:
+                case Types.REAL: // 7
                     float floatParam = ((Float) parameters.get(i)).floatValue();
                     ps.setFloat(i + 1, floatParam);
                     break;
 
-                case Types.FLOAT:
-                case Types.DOUBLE:
+                case Types.FLOAT: // 6
+                case Types.DOUBLE: // 8
                     double doubleParam = ((Double) parameters.get(i)).doubleValue();
                     ps.setDouble(i + 1, doubleParam);
                     break;
 
-                case Types.NUMERIC:
-                case Types.DECIMAL:
+                case Types.NUMERIC: // 2
+                case Types.DECIMAL: // 3
                     BigDecimal bigdecimalParam = (BigDecimal) parameters.get(i);
                     ps.setBigDecimal(i + 1, bigdecimalParam);
                     break;
 
-                case Types.DATE:
+                case Types.DATE: // 91
                     java.sql.Date dateParam = (java.sql.Date) parameters.get(i);
                     ps.setDate(i + 1, dateParam);
                     break;
 
-                case Types.TIME:
+                case Types.TIME: // 92
                     java.sql.Time timeParam = (java.sql.Time) parameters.get(i);
                     ps.setTime(i + 1, timeParam);
                     break;
 
-                case Types.TIMESTAMP:
+                case Types.TIMESTAMP: // 93
                     java.sql.Timestamp timestampParam = (java.sql.Timestamp) parameters.get(i);
                     ps.setTimestamp(i + 1, timestampParam);
                     break;
@@ -236,56 +236,56 @@ public class DynamicQuery {
             int columnType = rsMetaData.getColumnType(i + 1);
 
             switch (columnType) {
-            case Types.CHAR:
-            case Types.VARCHAR:
-            case Types.LONGVARCHAR:
+            case Types.CHAR: // 1
+            case Types.VARCHAR: // 12
+            case Types.LONGVARCHAR: // -1
                 rs.updateString(i + 1, (String) parameters.get(i));
                 break;
 
-            case Types.BIT:
-            case Types.BOOLEAN:
+            case Types.BIT: // -7
+            case Types.BOOLEAN: // 16
                 rs.updateBoolean(i + 1, ((Boolean) parameters.get(i)).booleanValue());
                 break;
 
-            case Types.TINYINT:
+            case Types.TINYINT: // -6
                 rs.updateByte(i, ((Byte) parameters.get(i)).byteValue());
                 break;
 
-            case Types.SMALLINT:
+            case Types.SMALLINT: // 5
                 rs.updateShort(i, ((Short) parameters.get(i)).shortValue());
                 break;
 
-            case Types.INTEGER:
+            case Types.INTEGER: // 4
                 rs.updateInt(i, ((Integer) parameters.get(i)).intValue());
                 break;
 
-            case Types.BIGINT:
+            case Types.BIGINT: // -5
                 rs.updateLong(i, ((Long) parameters.get(i)).longValue());
                 break;
 
-            case Types.REAL:
+            case Types.REAL: // 7
                 rs.updateFloat(i, ((Float) parameters.get(i)).floatValue());
                 break;
 
-            case Types.FLOAT:
-            case Types.DOUBLE:
+            case Types.FLOAT: // 6
+            case Types.DOUBLE: // 8
                 rs.updateDouble(i, ((Double) parameters.get(i)).doubleValue());
                 break;
 
-            case Types.NUMERIC:
-            case Types.DECIMAL:
+            case Types.NUMERIC: // 2
+            case Types.DECIMAL: // 3
                 rs.updateBigDecimal(i, (BigDecimal) parameters.get(i));
                 break;
 
-            case Types.DATE:
+            case Types.DATE: // 91
                 rs.updateDate(i, (java.sql.Date) parameters.get(i));
                 break;
 
-            case Types.TIME:
+            case Types.TIME: // 92
                 rs.updateTime(i, (java.sql.Time) parameters.get(i));
                 break;
 
-            case Types.TIMESTAMP:
+            case Types.TIMESTAMP: // 93
                 rs.updateTimestamp(i, (java.sql.Timestamp) parameters.get(i));
                 break;
             }
@@ -313,56 +313,56 @@ public class DynamicQuery {
             int columnType = rsMetaData.getColumnType(i + 1);
 
             switch (columnType) {
-            case Types.CHAR:
-            case Types.VARCHAR:
-            case Types.LONGVARCHAR:
+            case Types.CHAR: // 1
+            case Types.VARCHAR: // 12
+            case Types.LONGVARCHAR: // -1
                 rs.updateString(i + 1, (String) parameters.get(i));
                 break;
 
-            case Types.BIT:
-            case Types.BOOLEAN:
+            case Types.BIT: // -7
+            case Types.BOOLEAN: // 16
                 rs.updateBoolean(i + 1, ((Boolean) parameters.get(i)).booleanValue());
                 break;
 
-            case Types.TINYINT:
+            case Types.TINYINT: // -6
                 rs.updateByte(i, ((Byte) parameters.get(i)).byteValue());
                 break;
 
-            case Types.SMALLINT:
+            case Types.SMALLINT: // 5
                 rs.updateShort(i, ((Short) parameters.get(i)).shortValue());
                 break;
 
-            case Types.INTEGER:
+            case Types.INTEGER: // 4
                 rs.updateInt(i, ((Integer) parameters.get(i)).intValue());
                 break;
 
-            case Types.BIGINT:
+            case Types.BIGINT: // -5
                 rs.updateLong(i, ((Long) parameters.get(i)).longValue());
                 break;
 
-            case Types.REAL:
+            case Types.REAL: // 7
                 rs.updateFloat(i, ((Float) parameters.get(i)).floatValue());
                 break;
 
-            case Types.FLOAT:
-            case Types.DOUBLE:
+            case Types.FLOAT: // 6
+            case Types.DOUBLE: // 8
                 rs.updateDouble(i, ((Double) parameters.get(i)).doubleValue());
                 break;
 
-            case Types.NUMERIC:
-            case Types.DECIMAL:
+            case Types.NUMERIC: // 2
+            case Types.DECIMAL: // 3
                 rs.updateBigDecimal(i, (BigDecimal) parameters.get(i));
                 break;
 
-            case Types.DATE:
+            case Types.DATE: // 91
                 rs.updateDate(i, (java.sql.Date) parameters.get(i));
                 break;
 
-            case Types.TIME:
+            case Types.TIME: // 92
                 rs.updateTime(i, (java.sql.Time) parameters.get(i));
                 break;
 
-            case Types.TIMESTAMP:
+            case Types.TIMESTAMP: // 93
                 rs.updateTimestamp(i, (java.sql.Timestamp) parameters.get(i));
                 break;
             }
@@ -511,5 +511,67 @@ public class DynamicQuery {
                 INSERT INTO %s (%s)
                 VALUES (%s)
                          """.formatted(tableName, insertColumns, insertValues);
+    }
+    
+    public void updateResultSet(ResultSet rs, int columnCount, ResultSetMetaData rsMetaData, List<?> parameters)
+            throws SQLException {
+        for (int i = 0; i < columnCount; i++) {
+            int columnType = rsMetaData.getColumnType(i + 1);
+
+            switch (columnType) {
+            case Types.CHAR: // 1
+            case Types.VARCHAR: // 12
+            case Types.LONGVARCHAR: // -1
+                rs.updateString(i + 1, (String) parameters.get(i));
+                break;
+
+            case Types.BIT: // -7
+            case Types.BOOLEAN: // 16
+                rs.updateBoolean(i + 1, ((Boolean) parameters.get(i)).booleanValue());
+                break;
+
+            case Types.TINYINT: // -6
+                rs.updateByte(i, ((Byte) parameters.get(i)).byteValue());
+                break;
+
+            case Types.SMALLINT: // 5
+                rs.updateShort(i, ((Short) parameters.get(i)).shortValue());
+                break;
+
+            case Types.INTEGER: // 4
+                rs.updateInt(i, ((Integer) parameters.get(i)).intValue());
+                break;
+
+            case Types.BIGINT: // -5
+                rs.updateLong(i, ((Long) parameters.get(i)).longValue());
+                break;
+
+            case Types.REAL: // 7
+                rs.updateFloat(i, ((Float) parameters.get(i)).floatValue());
+                break;
+
+            case Types.FLOAT: // 6
+            case Types.DOUBLE: // 8
+                rs.updateDouble(i, ((Double) parameters.get(i)).doubleValue());
+                break;
+
+            case Types.NUMERIC: // 2
+            case Types.DECIMAL: // 3
+                rs.updateBigDecimal(i, (BigDecimal) parameters.get(i));
+                break;
+
+            case Types.DATE: // 91
+                rs.updateDate(i, (java.sql.Date) parameters.get(i));
+                break;
+
+            case Types.TIME: // 92
+                rs.updateTime(i, (java.sql.Time) parameters.get(i));
+                break;
+
+            case Types.TIMESTAMP: // 93
+                rs.updateTimestamp(i, (java.sql.Timestamp) parameters.get(i));
+                break;
+            }
+        }
     }
 }
