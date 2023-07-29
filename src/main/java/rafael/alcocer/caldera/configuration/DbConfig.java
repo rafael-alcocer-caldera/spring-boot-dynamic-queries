@@ -38,7 +38,7 @@ public class DbConfig {
     private String password;
 
     @Bean
-    Connection getConnection() {
+    Connection conn() {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException ex) {
