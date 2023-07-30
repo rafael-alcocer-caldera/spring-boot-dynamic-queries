@@ -76,8 +76,10 @@ public class DynamicQuery {
             for (int i = 0; i < parametersCount; i++) {
                 // Starts with 1 not 0 due SQL
                 int parameterType = parameterMetaData.getParameterType(i + 1);
-
                 LOGGER.info("##### parameterType: " + parameterType);
+                
+                String parameterClassName = parameterMetaData.getParameterClassName(i + 1);
+                LOGGER.info("##### parameterClassName: " + parameterClassName);
 
                 switch (parameterType) {
                 case Types.CHAR: // 1
