@@ -1,8 +1,9 @@
 # Eclipse
 .classpath
 .factorypath
-.project
+.project/
 .settings/
+.dbeaver/
 
 # Intellij
 .idea/
@@ -15,3 +16,4 @@
 # Maven
 log/
 target/
+bin/
